@@ -1,28 +1,46 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-class App extends Component {
+import Calendar from "./components/Calendar";
+import Task from "./components/Task";
+import HTML5Backend from "react-dnd-html5-backend";
+import { DragDropContext } from "react-dnd";
+
+import "./App.css";
+
+class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+        <header>
+          <div id="logo">
+            <span className="icon">date_range</span>
+            <span>
+              Project managnment app <b>calendar</b>
+            </span>
+          </div>
         </header>
+        <div className="grid-container">
+        <div className="side-bar">
+          
+          Unscheduled Tasks
+          <ul>
+            <Task no="1"/>
+            <Task no="2"/>
+            <Task no="3"/>
+            <Task no="4"/>
+            <Task no="5"/>
+            
+            </ul>
+          
+          
+          </div>
+        <main>
+          <Calendar />
+        </main>
+          </div>
       </div>
     );
   }
 }
 
-export default App;
+export default DragDropContext(HTML5Backend)(App)
