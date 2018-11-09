@@ -1,7 +1,7 @@
 import React from "react";
 
-import Calendar from "./components/Calendar";
-import Task from "./components/Task";
+import Calendar from "../../components/Calendar";
+import TaskLists from "../TaskLists/TaskLists";
 import HTML5Backend from "react-dnd-html5-backend";
 import { DragDropContext } from "react-dnd";
 
@@ -23,14 +23,8 @@ class App extends React.Component {
         <div className="side-bar">
           
           Unscheduled Tasks
-          <ul>
-            <Task no="1"/>
-            <Task no="2"/>
-            <Task no="3"/>
-            <Task no="4"/>
-            <Task no="5"/>
-            
-            </ul>
+          <TaskLists/>          
+ 
           
           
           </div>
