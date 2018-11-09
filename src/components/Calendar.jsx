@@ -1,7 +1,7 @@
 import React from "react";
 import dateFns from "date-fns";
 import { connect } from 'react-redux';
-import {assignTasks} from '../actions/taskList';
+import {assignTasks, popTaskList} from '../actions/taskList';
 
 import CalendarCell from './CalendarCell';
 
@@ -17,6 +17,7 @@ class Calendar extends React.Component {
 
   addItems = (data,date) => { 
    this.props.dispatch(assignTasks(data,date));
+   this.props.dispatch(popTaskList(data.index));
   }
 
   renderHeader() {
@@ -68,9 +69,12 @@ class Calendar extends React.Component {
     let taskBydate = []
 forOwn(this.props.assignedTasks, function(value, key) { 
 
-  taskBydate[value.date]=value;
+  if(!taskBydate[value.date]){
+    taskBydate[value.date]=[]
+  }
+  taskBydate[value.date].push(value);
 } );
-console.log('ssssss',taskBydate)
+
 
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {

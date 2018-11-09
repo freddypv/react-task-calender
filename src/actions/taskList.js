@@ -7,6 +7,12 @@ export function getTaskList() {
     };
 }
 
+export function popTaskList(index) {
+    return (dispatch) => {
+        dispatch({type: 'REMOVE_TASK_LIST_ITEM', payload: index});
+    };
+}
+
 export function assignTasks(tasks, date) {
   
     return (dispatch, getState) => {       

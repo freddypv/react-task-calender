@@ -1,6 +1,7 @@
 import React from "react";
 import dateFns from "date-fns";
 import {DropTarget} from 'react-dnd';
+import forOwn from 'lodash/forOwn';
 
 
 const Types = {
@@ -33,6 +34,18 @@ const componentTarget = {
 class CalendarCell extends React.Component {
 
 
+ renderTasks(){
+
+    const rows = [];
+    forOwn(this.props.assignedTaks, function(value, key) { 
+
+      rows.push(
+            <p className="usigned-tasks">{value.value}</p>
+    );
+    });
+    return rows;
+ }
+
   render() {
     const {
       day,
@@ -43,7 +56,7 @@ class CalendarCell extends React.Component {
       connectDropTarget,
       assignedTaks
     } = this.props
-    console.log('ssssssssssssssssssss',assignedTaks);
+    //console.log('ssssssssssssssssssss',assignedTaks);
     return connectDropTarget(
       <div
         className={`col cell ${ !dateFns.isSameMonth(day, monthStart)
@@ -53,7 +66,11 @@ class CalendarCell extends React.Component {
           : ""}`}
         key={day}
         onClick={() => this.props.onDateClick(dateFns.parse(cloneDay))}>
-        <p>{assignedTaks.value}</p>
+
+        {
+          this.renderTasks()
+        }
+       
         <span className="number">{formattedDate}</span>
         <span className="bg">{formattedDate}</span>
       </div>
