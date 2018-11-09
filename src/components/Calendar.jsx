@@ -1,26 +1,11 @@
 import React from "react";
 import dateFns from "date-fns";
-import { DropTarget } from 'react-dnd';
 
 
-const Types = {
- ITEM: 'toy'
-}
-function collect(connect, monitor) {
- return {
- connectDropTarget: connect.dropTarget()
- }
-}
+import CalendarCell from './CalendarCell'
 
 
 
-const itemSources = {
-
- drop(props) {
- console.log('cale',props)
- }
-
-}
 class Calendar extends React.Component {
   state = {
     currentMonth: new Date(),
@@ -50,8 +35,8 @@ class Calendar extends React.Component {
   renderDays() {
     const dateFormat = "dddd";
     const days = [];
-    console.log('lllllllllllllll',this.state.currentMonth)
-    let startDate = dateFns.startOfWeek(this.state.currentMonth,{weekStartsOn: 1});
+    console.log('lllllllllllllll', this.state.currentMonth)
+    let startDate = dateFns.startOfWeek(this.state.currentMonth, { weekStartsOn: 1 });
 
     for (let i = 0; i < 7; i++) {
       days.push(
@@ -77,27 +62,25 @@ class Calendar extends React.Component {
     let days = [];
     let day = startDate;
     let formattedDate = "";
-    console.log('monthStart',monthStart);
-    console.log('currentMonth',currentMonth);
-    console.log('monthEnd',monthEnd);
-        console.log('startDate',startDate);
+    console.log('monthStart', monthStart);
+    console.log('currentMonth', currentMonth);
+    console.log('monthEnd', monthEnd);
+    console.log('startDate', startDate);
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
         formattedDate = dateFns.format(day, dateFormat);
         const cloneDay = day;
         days.push(
-          <div
-            className={`col cell ${
-              !dateFns.isSameMonth(day, monthStart)
-                ? "disabled"
-                : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
-            }`}
-            key={day}
-            onClick={() => this.onDateClick(dateFns.parse(cloneDay))}
-          >
-            <span className="number">{formattedDate}</span>
-            <span className="bg">{formattedDate}</span>
-          </div>
+          <CalendarCell 
+          day={day}
+          monthStart={monthStart}
+          selectedDate={selectedDate}
+          cloneDay={cloneDay}
+          formattedDate={formattedDate}
+          onDateClick={this.onDateClick}
+          
+          ></CalendarCell>
+         
         );
         day = dateFns.addDays(day, 1);
       }
@@ -130,8 +113,8 @@ class Calendar extends React.Component {
   };
 
   render() {
-    const { connectDropTarget } = this.props
-   return connectDropTarget(
+   
+    return (
       <div className="calendar">
         {this.renderHeader()}
         {this.renderDays()}
@@ -141,4 +124,4 @@ class Calendar extends React.Component {
   }
 }
 
-export default DropTarget(Types.ITEM, itemSources, collect)(Calendar);
+export default Calendar;
