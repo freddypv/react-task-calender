@@ -8,14 +8,14 @@ import { getTaskList } from '../../actions/taskList';
 
 class TaskList extends Component {
 
-    componentWillMount = () => {
+  componentWillMount = () => {
      this.props.dispatch(getTaskList());
   }
 
     generateHeaders() {
     const taskLists = this.props.taskLists;
     return taskLists.map((data) => {
-      return <Task index={data.key} value={data.name} />;
+      return <Task  key={data.key} index={data.key} value={data.name} />;
     });
   }
 

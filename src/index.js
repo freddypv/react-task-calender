@@ -6,11 +6,11 @@ import './index.css';
 //import { apiInterceptor } from './utility/apiInterceptor';
 import * as serviceWorker from './serviceWorker';
 
-import {
-  saveLanguage,
-  saveUserDetails,
-  removeUserDetails
-} from './utility/localStorage';
+// import {
+//   saveLanguage,
+//   saveUserDetails,
+//   removeUserDetails
+// } from './utility/localStorage';
 
 const store = configureStore();
 

@@ -1,7 +1,8 @@
 import React from "react";
 import dateFns from "date-fns";
-import {DropTarget} from 'react-dnd';
+import { DropTarget } from 'react-dnd';
 import forOwn from 'lodash/forOwn';
+import SheduledTask from './SheduledTask'
 
 
 const Types = {
@@ -22,11 +23,9 @@ const componentTarget = {
 */
   drop(props, monitor, component) {
     let droppedComponent = monitor.getItem();
-    let params = {...droppedComponent};
-    params['date']= component.props.displayDate;
-   // droppedComponent['date']=component.props.displayDate;
+    let params = { ...droppedComponent };
+    params['date'] = component.props.displayDate;
     component.props.addItems(params, component.props.displayDate);
-
     return droppedComponent;
   }
 }
@@ -34,17 +33,17 @@ const componentTarget = {
 class CalendarCell extends React.Component {
 
 
- renderTasks(){
-
+  renderTasks() {
     const rows = [];
-    forOwn(this.props.assignedTaks, function(value, key) { 
-
+    let currentDateCell = this.props.displayDate;
+    forOwn(this.props.assignedTaks, function (value, key) {
       rows.push(
-            <p className="usigned-tasks">{value.value}</p>
-    );
+        <SheduledTask key={value.value} index={value.index} sheduleddate={currentDateCell} value={value.value} />
+
+      );
     });
     return rows;
- }
+  }
 
   render() {
     const {
@@ -55,22 +54,20 @@ class CalendarCell extends React.Component {
       formattedDate,
       connectDropTarget,
       assignedTaks
-    } = this.props
-    //console.log('ssssssssssssssssssss',assignedTaks);
+    } = this.props;
     return connectDropTarget(
       <div
-        className={`col cell ${ !dateFns.isSameMonth(day, monthStart)
-        ? "disabled"
-        : dateFns.isSameDay(day, selectedDate)
-          ? "selected"
-          : ""}`}
+        className={`col cell ${!dateFns.isSameMonth(day, monthStart)
+          ? "disabled"
+          : dateFns.isSameDay(day, selectedDate)
+            ? "selected"
+            : ""}`}
         key={day}
         onClick={() => this.props.onDateClick(dateFns.parse(cloneDay))}>
 
         {
           this.renderTasks()
         }
-       
         <span className="number">{formattedDate}</span>
         <span className="bg">{formattedDate}</span>
       </div>

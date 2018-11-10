@@ -23,3 +23,13 @@ export function assignTasks(tasks, date) {
         });
     };
 }
+
+export function removeTasks(date,taskId) {
+    return (dispatch, getState) => {       
+        dispatch({
+            type: 'REMOVE_TASKS_TO_DATE', 
+            taskId,
+            date
+        });
+    };
+}

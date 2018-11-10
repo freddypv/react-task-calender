@@ -1,5 +1,3 @@
-import clone from 'lodash/clone';
-import assign from 'lodash/clone';
 const Tasks = (state = {
   tasks: [],
   assignedTasks: []
@@ -16,6 +14,13 @@ const Tasks = (state = {
         assignedTasks: [
           ...state.assignedTasks,
           action.payload
+        ]
+      };
+      case 'REMOVE_TASKS_TO_DATE':
+      return {
+        ...state,
+        assignedTasks: [
+          ...state.assignedTasks.filter(value => !(value.date == action.date && value.index == action.taskId))
         ]
       };
     case 'REMOVE_TASK_LIST_ITEM':

@@ -1,7 +1,7 @@
 import React from "react";
 import dateFns from "date-fns";
 import { connect } from 'react-redux';
-import {assignTasks, popTaskList} from '../actions/taskList';
+import {assignTasks, popTaskList, removeTasks} from '../actions/taskList';
 
 import CalendarCell from './CalendarCell';
 
@@ -18,6 +18,11 @@ class Calendar extends React.Component {
   addItems = (data,date) => { 
    this.props.dispatch(assignTasks(data,date));
    this.props.dispatch(popTaskList(data.index));
+   if(data.sheduleddate){
+     console.log('dddddddddddd',data)
+    this.props.dispatch(removeTasks(data.sheduleddate,data.index));
+    
+   }
   }
 
   renderHeader() {
@@ -92,7 +97,8 @@ forOwn(this.props.assignedTasks, function(value, key) {
           formattedDate={formattedDate}
           onDateClick={this.onDateClick}
           addItems = {this.addItems}
-          assignedTaks={assignedTaks}          
+          assignedTaks={assignedTaks}
+          key={day}
           ></CalendarCell>         
         );
         day = dateFns.addDays(day, 1);
