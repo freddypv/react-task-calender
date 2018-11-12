@@ -16,13 +16,15 @@ class Calendar extends React.Component {
   };
 
   addItems = (data,date) => { 
-   this.props.dispatch(assignTasks(data,date));
-   this.props.dispatch(popTaskList(data.index));
-   if(data.sheduleddate){
-     console.log('dddddddddddd',data)
-    this.props.dispatch(removeTasks(data.sheduleddate,data.index));
-    
-   }
+    if(date !== data.sheduleddate) { 
+      console.log('dddddddddddddddaaaaaaa',data.index, data.sheduleddate);
+    this.props.dispatch(assignTasks(data,date));
+    this.props.dispatch(popTaskList(data.index));
+      if(data.sheduleddate){      
+        this.props.dispatch(removeTasks(data.sheduleddate,data.index));
+        
+      }
+    }
   }
 
   renderHeader() {
