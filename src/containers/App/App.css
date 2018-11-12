@@ -264,11 +264,22 @@ list-style-type: none;
     background-color: #fff;
     border: 1px solid var(--border-color);
 
+    border-left: 5px solid transparent;
+    border-right: 3px solid transparent;
+    -webkit-border-image: -webkit-linear-gradient(45deg, #1a8fff 0%,#53cbf1 40%);
+    border-image: linear-gradient(45deg, #ff0000 0%,#3300 40%);
+    border-image-slice: 1;
+
 }
 
 .usigned-tasks {
   margin: 3px;
-    width: 80%;
+  width: 80%;
+  border-left: 5px solid transparent;
+  border-right: 3px solid transparent;
+  -webkit-border-image: -webkit-linear-gradient(45deg, #1a8fff 0%,#53cbf1 40%);
+  border-image: linear-gradient(45deg, #ff0000 0%,#f3455f 40%);
+  border-image-slice: 1;
 
 }
 
