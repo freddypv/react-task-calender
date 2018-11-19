@@ -20,7 +20,7 @@ function collect(connect, monitor) {
 
 class SheduledTask extends Component {
     render() {
-        const {isDragging, connectDragSource, src} = this.props
+        const {connectDragSource} = this.props
         return connectDragSource(
             <div className="usigned-tasks" sheduleddate={this.props.sheduleddate}>{this.props.value}</div>
         )

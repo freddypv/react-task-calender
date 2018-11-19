@@ -18,12 +18,12 @@ function collect(connect, monitor) {
     }
 }
 
-class Task extends Component {
+class ExpandableArea extends Component {
     render() {
         const {connectDragSource} = this.props
         return connectDragSource(
-            <li index={this.props.index}>{this.props.value}</li>
+            <div className="expandable-area" sheduleddate={this.props.sheduleddate}></div>
         )
     }
 }
-export default DragSource(Types.ITEM, itemSource, collect)(Task)
+export default DragSource(Types.ITEM, itemSource, collect)(ExpandableArea)

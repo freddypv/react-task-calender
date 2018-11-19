@@ -20,7 +20,7 @@ const Tasks = (state = {
       return {
         ...state,
         assignedTasks: [
-          ...state.assignedTasks.filter(value => !(value.date == action.date && value.index == action.taskId))
+          ...state.assignedTasks.filter(value => !(value.date === action.date && value.index === action.taskId))
         ]
       };
     case 'REMOVE_TASK_LIST_ITEM':
@@ -29,8 +29,13 @@ const Tasks = (state = {
         tasks: [
           ...state
             .tasks
-            .filter(value => value.key != action.payload)
+            .filter(value => value.key !== action.payload)
         ]
+      };
+    case 'EXPAND_TASK':
+      return {
+        ...state,
+        assignedTasks: [...new Set(action.dates.map(o => JSON.stringify(o)))].map(s => JSON.parse(s))
       };
     default:
       return state;

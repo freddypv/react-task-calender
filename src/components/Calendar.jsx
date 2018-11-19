@@ -1,28 +1,43 @@
 import React from "react";
 import dateFns from "date-fns";
 import { connect } from 'react-redux';
-import {assignTasks, popTaskList, removeTasks} from '../actions/taskList';
+import {assignTasks, popTaskList,
+   removeTasks, expandTask} from '../actions/taskList';
 
 import CalendarCell from './CalendarCell';
 
 import forOwn from 'lodash/forOwn';
+import debounce from 'lodash/debounce';
 
 
 
 class Calendar extends React.Component {
+
+  constructor(props) {
+    super(props);
+   
+    this.addItems = debounce(this.addItems, 500);
+  }
   state = {
     currentMonth: new Date(),
     selectedDate: new Date()
   };
 
   addItems = (data,date) => { 
-    if(date !== data.sheduleddate) { 
-      console.log('dddddddddddddddaaaaaaa',data.index, data.sheduleddate);
+    console.log('dddddddddddd',data)
+    if(date !== data.sheduleddate && !data.expand) { 
     this.props.dispatch(assignTasks(data,date));
     this.props.dispatch(popTaskList(data.index));
       if(data.sheduleddate){      
         this.props.dispatch(removeTasks(data.sheduleddate,data.index));
-        
+      }
+    }
+  }
+
+  dragOver = (data) => { 
+    if(data.date !== data.sheduleddate) { 
+      if(data.sheduleddate){      
+        this.props.dispatch(expandTask(data));
       }
     }
   }
@@ -75,11 +90,12 @@ class Calendar extends React.Component {
     let assignedTaks="";
     let taskBydate = []
 forOwn(this.props.assignedTasks, function(value, key) { 
-
+  if(value) { 
   if(!taskBydate[value.date]){
     taskBydate[value.date]=[]
   }
   taskBydate[value.date].push(value);
+}
 } );
 
 
@@ -99,6 +115,7 @@ forOwn(this.props.assignedTasks, function(value, key) {
           formattedDate={formattedDate}
           onDateClick={this.onDateClick}
           addItems = {this.addItems}
+          dragOver = {this.dragOver}
           assignedTaks={assignedTaks}
           key={day}
           ></CalendarCell>         
@@ -134,7 +151,6 @@ forOwn(this.props.assignedTasks, function(value, key) {
   };
 
   render() {
-   console.log('$$$$$$$',this.props.assignedTasks);
     return (
       <div className="calendar">
         {this.renderHeader()}
