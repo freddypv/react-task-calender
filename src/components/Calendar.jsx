@@ -1,5 +1,12 @@
 import React from "react";
-import {format,startOfWeek,addDays,startOfMonth,endOfMonth,endOfWeek,addMonths,subMonths} from "date-fns";
+import format from "date-fns/format";
+import startOfWeek from "date-fns/start_of_week";
+import addDays from "date-fns/add_days";
+import startOfMonth from "date-fns/start_of_month";
+import endOfMonth from "date-fns/end_of_month";
+import endOfWeek from "date-fns/end_of_week";
+import addMonths from "date-fns/add_months";
+import subMonths from "date-fns/sub_months";
 import { connect } from 'react-redux';
 import {assignTasks, popTaskList,
    removeTasks, expandTask} from '../actions/taskList';

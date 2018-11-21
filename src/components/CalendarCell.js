@@ -1,5 +1,6 @@
 import React from "react";
-import {isSameMonth,isSameDay} from "date-fns";
+import isSameMonth from "date-fns/is_same_month";
+import isSameDay from "date-fns/is_same_day";
 import { DropTarget } from 'react-dnd';
 import forOwn from 'lodash/forOwn';
 import SheduledTask from './SheduledTask';

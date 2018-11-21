@@ -1,5 +1,7 @@
 import {TASK_LIST} from '../Constants';
-import {compareAsc,eachDay,format} from "date-fns";
+import compareAsc from "date-fns/compare_asc";
+import eachDay from "date-fns/each_day";
+import format from "date-fns/format";
 
 export function getTaskList() {
     return (dispatch) => {
