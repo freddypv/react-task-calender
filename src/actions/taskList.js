@@ -43,9 +43,7 @@ function generateDates(date){
 }
 
 export function expandTask( date) {
-  //  console.log('dddd',date)
     let dates= generateDates(date)
-//   console.log('qqqqqqqaaaaaaa',dates)
     return (dispatch, getState) => {       
         dispatch({
             type: 'EXPAND_TASK', 
