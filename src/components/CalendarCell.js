@@ -55,11 +55,11 @@ class CalendarCell extends React.Component {
     let currentDateCell = this.props.displayDate;
     forOwn(this.props.assignedTaks, function (value, key) {
       let uniqueKey =value.value+value.index;
-      // console.log(value);
+      console.log(value,'@@');
       if(value.lastEntry){
         rows.push(
           <div className="dragable_expandable_container">
-          <SheduledTask key={uniqueKey} index={value.index} flag={'schedule'} sheduleddate={currentDateCell} value={value.value} />
+          <SheduledTask key={uniqueKey} index={value.index} flag={'schedule'} lastEntry={true} sheduleddate={currentDateCell} value={value.value} />
           <ExpandableArea key={uniqueKey+'##'} index={value.index} flag={'expand'} sheduleddate={currentDateCell} value={value.value} />
         
           </div>
@@ -68,7 +68,7 @@ class CalendarCell extends React.Component {
       } else {
         rows.push(
           <div className="dragable_expandable_container full_length_container">
-          <SheduledTask key={uniqueKey} index={value.index} flag={'schedule'} sheduleddate={currentDateCell} value={value.value} />
+          <SheduledTask key={uniqueKey} index={value.index} flag={'schedule'} lastEntry={true} sheduleddate={currentDateCell} value={value.value} />
           </div>
 
         );

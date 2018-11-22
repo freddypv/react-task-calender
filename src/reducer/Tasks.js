@@ -9,6 +9,7 @@ const Tasks = (state = {
         tasks: action.payload
       };
     case 'ASSIGN_TASKS_TO_DATE':
+      console.log(state,"##");
       return {
         ...state,
         assignedTasks: [
