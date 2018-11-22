@@ -293,9 +293,15 @@ list-style-type: none;
   grid-template-columns: 4fr 1fr;
 }
 
+.full_length_container {
+  grid-template-columns: 5fr;
+}
+
 .expandable-area {
-background-color: #1a8fff;
-background: url('/../../public/icons8-drag-reorder-filled-50.png') no-repeat;
+  background-image: url('/../../icons8-drag-reorder-filled-50.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+
 }
 
 

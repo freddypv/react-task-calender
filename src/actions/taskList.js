@@ -1,5 +1,7 @@
 import {TASK_LIST} from '../Constants';
-import dateFns from "date-fns";
+import compareAsc from "date-fns/compare_asc";
+import eachDay from "date-fns/each_day";
+import format from "date-fns/format";
 
 export function getTaskList() {
     return (dispatch) => {
@@ -27,13 +29,13 @@ export function assignTasks(tasks, date) {
 function generateDates(date){
     let dates=[];
     let fatelist;
-    if(dateFns.compareAsc(date.sheduleddate,date.date )> 0){
-         fatelist = dateFns.eachDay(date.date,date.sheduleddate);
+    if(compareAsc(date.sheduleddate,date.date )> 0){
+         fatelist = eachDay(date.date,date.sheduleddate);
     }else{ 
-     fatelist = dateFns.eachDay(date.sheduleddate,date.date);
+     fatelist = eachDay(date.sheduleddate,date.date);
     }
     fatelist.forEach(function(value, key){
-        date['date']=dateFns.format(value, 'DDMMMYYYY');
+        date['date']=format(value, 'DDMMMYYYY');
         dates.push({...date})
     })
     return dates;
@@ -43,7 +45,7 @@ function generateDates(date){
 export function expandTask( date) {
   //  console.log('dddd',date)
     let dates= generateDates(date)
-  console.log('qqqqqqqaaaaaaa',dates)
+//   console.log('qqqqqqqaaaaaaa',dates)
     return (dispatch, getState) => {       
         dispatch({
             type: 'EXPAND_TASK', 

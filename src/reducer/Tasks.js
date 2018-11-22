@@ -35,7 +35,12 @@ const Tasks = (state = {
     case 'EXPAND_TASK':
       return {
         ...state,
-        assignedTasks: [...new Set(action.dates.map(o => JSON.stringify(o)))].map(s => JSON.parse(s))
+        assignedTasks: [...new Set(action.dates.map((o, index) =>  {
+          o.lastEntry = index+1 === action.dates.length;
+          return JSON.stringify(o) 
+        }))].map(s => 
+          JSON.parse(s)
+        )
       };
     default:
       return state;

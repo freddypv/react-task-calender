@@ -1,5 +1,6 @@
 import React from "react";
-import dateFns from "date-fns";
+import isSameMonth from "date-fns/is_same_month";
+import isSameDay from "date-fns/is_same_day";
 import { DropTarget } from 'react-dnd';
 import forOwn from 'lodash/forOwn';
 import SheduledTask from './SheduledTask';
@@ -25,19 +26,23 @@ const componentTarget = {
 */
   drop(props, monitor, component) {
     let droppedComponent = monitor.getItem();
-    let params = { ...droppedComponent };
-    params['date'] = component.props.displayDate;
-    component.props.addItems(params, component.props.displayDate);
+    if(droppedComponent.flag === 'schedule') {
+      let params = { ...droppedComponent };
+      params['date'] = component.props.displayDate;
+      component.props.addItems(params, component.props.displayDate);
+    }
     return droppedComponent;
   },
 
   hover(props, monitor, component){
     let droppedComponent = monitor.getItem();
-    let params = { ...droppedComponent };
-    params['date'] = component.props.displayDate;
-    params['expand'] = true;
-   // console.log('qqqqqqqqqqq',params);
-    component.props.dragOver(params);
+    if(droppedComponent.flag === 'expand') {
+      let params = { ...droppedComponent };
+      params['date'] = component.props.displayDate;
+      params['expand'] = true;
+      component.props.dragOver(params);
+    }
+    
     return droppedComponent;
   }
 }
@@ -50,14 +55,25 @@ class CalendarCell extends React.Component {
     let currentDateCell = this.props.displayDate;
     forOwn(this.props.assignedTaks, function (value, key) {
       let uniqueKey =value.value+value.index;
-      rows.push(
-        <div className="dragable_expandable_container">
-        <SheduledTask key={uniqueKey} index={value.index} sheduleddate={currentDateCell} value={value.value} />
-        <ExpandableArea key={uniqueKey} index={value.index} sheduleddate={currentDateCell} value={value.value} />
-       
-        </div>
+      // console.log(value);
+      if(value.lastEntry){
+        rows.push(
+          <div className="dragable_expandable_container">
+          <SheduledTask key={uniqueKey} index={value.index} flag={'schedule'} sheduleddate={currentDateCell} value={value.value} />
+          <ExpandableArea key={uniqueKey+'##'} index={value.index} flag={'expand'} sheduleddate={currentDateCell} value={value.value} />
+        
+          </div>
 
-      );
+        );
+      } else {
+        rows.push(
+          <div className="dragable_expandable_container full_length_container">
+          <SheduledTask key={uniqueKey} index={value.index} flag={'schedule'} sheduleddate={currentDateCell} value={value.value} />
+          </div>
+
+        );
+      }
+      
     });
     return rows;
   }
@@ -72,9 +88,9 @@ class CalendarCell extends React.Component {
     } = this.props;
     return connectDropTarget(
       <div
-        className={`col cell ${!dateFns.isSameMonth(day, monthStart)
+        className={`col cell ${!isSameMonth(day, monthStart)
           ? "disabled"
-          : dateFns.isSameDay(day, selectedDate)
+          : isSameDay(day, selectedDate)
             ? "selected"
             : ""}`}
         key={day}
