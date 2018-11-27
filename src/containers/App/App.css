@@ -285,12 +285,23 @@ list-style-type: none;
   /* -webkit-border-image: -webkit-linear-gradient(45deg, #1a8fff 0%,#53cbf1 40%);
   border-image: linear-gradient(45deg, #ff0000 0%,#f3455f 40%); */
   border-image-slice: 1;
+  height: 20px;
+  font-size: 14px;
+  text-align: center;
+  border: solid 1px #fff;
+  border-right: none;
 
 }
 
 .dragable_expandable_container {
   display: grid;
   grid-template-columns: 4fr 1fr;
+}
+
+.dragable_expandable_container.first_cell .usigned-tasks{
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;  
+
 }
 
 .full_length_container {
@@ -306,15 +317,9 @@ list-style-type: none;
 
 
 
-/* .calendar .body .selected .number {
-  border-radius: 50%;
-  padding: 2px;
-  background: #f00;  
-  border: 2px solid #666;
-  color: #666;
-  text-align: center;
-  font: 82.5% Arial, sans-serif;
-} */
+ .calendar .body .selected .number {
+    pointer-events: none;
+} 
 
 
 

@@ -65,13 +65,16 @@ class CalendarCell extends React.Component {
           } else {
             return item;
           }
-          return false;
         }),
         function (value) { return value; });
     }
 
     forOwn(currentTaskList, function (value, key) {
       let uniqueKey = value.value + value.index;
+      let firstClass =false;
+      if(value.sheduleddate && value.sheduleddate===value.date){
+        firstClass=true;
+      }
       if (value.lastEntry) {
         rows.push(
           <div key={uniqueKey} className="dragable_expandable_container">
@@ -83,7 +86,7 @@ class CalendarCell extends React.Component {
         );
       } else {
         rows.push(
-          <div key={uniqueKey} className="dragable_expandable_container full_length_container">
+          <div key={uniqueKey} className={"dragable_expandable_container full_length_container" + (firstClass ? ' first_cell' : '')}>
             <SheduledTask key={uniqueKey} index={value.index} flag={'schedule'} lastEntry={true} sheduleddate={currentDateCell} value={value.value} />
           </div>
 

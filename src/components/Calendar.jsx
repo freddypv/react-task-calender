@@ -24,14 +24,16 @@ class Calendar extends React.Component {
     super(props);
    
     this.addItems = debounce(this.addItems, 500);
+    this.dragoverDate={}
   }
   state = {
     currentMonth: new Date(),
     selectedDate: new Date()
   };
 
+  
+
   addItems = (data,date) => { 
-    // console.log('dddddddddddd',data)
     if(date !== data.sheduleddate && !data.expand) { 
     this.props.dispatch(assignTasks(data,date));
     this.props.dispatch(popTaskList(data.index));
@@ -42,10 +44,12 @@ class Calendar extends React.Component {
   }
 
   dragOver = (data) => { 
+    if(this.dragoverDate[data.index]===data.date){
+      return;
+    }
+    this.dragoverDate[data.index]=data.date
     if(data.date !== data.sheduleddate) { 
       if(data.sheduleddate){
-        // console.log(data);
-        // this.props.dispatch(setFirstDate(data));
         this.props.dispatch(expandTask(data));
       }
     }
