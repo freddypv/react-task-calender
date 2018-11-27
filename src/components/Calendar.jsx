@@ -9,7 +9,7 @@ import addMonths from "date-fns/add_months";
 import subMonths from "date-fns/sub_months";
 import { connect } from 'react-redux';
 import {assignTasks, popTaskList,
-   removeTasks, expandTask} from '../actions/taskList';
+   removeTasks, expandTask, setFirstDate} from '../actions/taskList';
 
 import CalendarCell from './CalendarCell';
 
@@ -43,7 +43,9 @@ class Calendar extends React.Component {
 
   dragOver = (data) => { 
     if(data.date !== data.sheduleddate) { 
-      if(data.sheduleddate){      
+      if(data.sheduleddate){
+        // console.log(data);
+        // this.props.dispatch(setFirstDate(data));
         this.props.dispatch(expandTask(data));
       }
     }
