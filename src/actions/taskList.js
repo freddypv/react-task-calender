@@ -52,6 +52,10 @@ export function expandTask( date) {
     };
 }
 
+export function setFirstDate( date) {
+  
+}
+
 export function removeTasks(date,taskId) {
     return (dispatch, getState) => {       
         dispatch({

@@ -202,8 +202,8 @@ header #logo .icon {
   font-weight: 700;
   width: 100%;
   height: 15px;
-  position: absolute;
-  top: 0;
+  bottom: 0;
+  left: 0;
 }
 
 .calendar .body .disabled {
