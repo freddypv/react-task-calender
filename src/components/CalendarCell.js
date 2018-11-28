@@ -41,10 +41,10 @@ const componentTarget = {
     if (droppedComponent.flag === 'expand') {
       let params = { ...droppedComponent };
       params['date'] = component.props.displayDate;
-      params['expand'] = true;
+      params['expand'] = true;     
       component.props.dragOver(params);
     }
-    // console.log(component);
+ 
     return droppedComponent;
   }
 }
@@ -70,6 +70,7 @@ class CalendarCell extends React.Component {
     }
 
     forOwn(currentTaskList, function (value, key) {
+    //  console.log(currentTaskList,"tasklistssssssssssssss")
       let uniqueKey = value.value + value.index;
       let firstClass =false;
       if(value.sheduleddate && value.sheduleddate===value.date){

@@ -16,7 +16,6 @@ export function popTaskList(index) {
 }
 
 export function assignTasks(tasks, date) {
-  
     return (dispatch, getState) => {       
         dispatch({
             type: 'ASSIGN_TASKS_TO_DATE', 
@@ -42,12 +41,14 @@ function generateDates(date){
    // console.log(dates)
 }
 
-export function expandTask( date) {
+export function expandTask( date, index) {
+    
     let dates= generateDates(date)
     return (dispatch, getState) => {       
         dispatch({
             type: 'EXPAND_TASK', 
-            dates
+            dates,
+            index
         });
     };
 }

@@ -34,6 +34,7 @@ class Calendar extends React.Component {
   
 
   addItems = (data,date) => { 
+    console.log(data,date,"jjjjjjjjjjjjj");
     if(date !== data.sheduleddate && !data.expand) { 
     this.props.dispatch(assignTasks(data,date));
     this.props.dispatch(popTaskList(data.index));
@@ -44,13 +45,16 @@ class Calendar extends React.Component {
   }
 
   dragOver = (data) => { 
+  
     if(this.dragoverDate[data.index]===data.date){
       return;
-    }
+    }  
+
     this.dragoverDate[data.index]=data.date
     if(data.date !== data.sheduleddate) { 
+      data.sheduleddate= this.props.schedules[data.index] ? this.props.schedules[data.index] :data.sheduleddate;
       if(data.sheduleddate){
-        this.props.dispatch(expandTask(data));
+        this.props.dispatch(expandTask(data,data.index));
       }
     }
   }
@@ -177,6 +181,8 @@ forOwn(this.props.assignedTasks, function(value, key) {
 
 
 export const mapStateToProps = (state) => ({
-  assignedTasks: state.Tasks.assignedTasks
+  assignedTasks: state.Tasks.assignedTasks,
+  schedules: state.Tasks.schedules,
+  
 });
 export default connect(mapStateToProps)(Calendar);
