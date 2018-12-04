@@ -19,10 +19,20 @@ function collect(connect, monitor) {
 }
 
 class SheduledTask extends Component {
+
+    constructor( props ){
+        super( props );
+        this.taskSelected = this.taskSelected.bind(this);
+    }
+
+    taskSelected() {
+        this.props.onClick(this.props.value);
+    }
+
     render() {
         const {connectDragSource} = this.props
         return connectDragSource(
-            <div className="usigned-tasks" sheduleddate={this.props.sheduleddate}>{this.props.value}</div>
+            <div className="usigned-tasks" sheduleddate={this.props.sheduleddate} onClick={this.taskSelected}>{this.props.value}</div>
         )
     }
 }

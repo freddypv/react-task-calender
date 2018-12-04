@@ -25,6 +25,15 @@ export function assignTasks(tasks, date) {
     };
 }
 
+export function setCurrentTask(task) {
+    return (dispatch, getState) => {       
+        dispatch({
+            type: 'SET_CURRENT_TASK', 
+            task
+        });
+    };
+}
+
 function generateDates(date){
     let dates=[];
     let fatelist;

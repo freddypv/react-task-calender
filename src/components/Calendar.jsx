@@ -9,9 +9,10 @@ import addMonths from "date-fns/add_months";
 import subMonths from "date-fns/sub_months";
 import { connect } from 'react-redux';
 import {assignTasks, popTaskList,
-   removeTasks, expandTask} from '../actions/taskList';
+   removeTasks, expandTask, setCurrentTask} from '../actions/taskList';
 
 import CalendarCell from './CalendarCell';
+import TaskDetails from './TaskDetails';
 
 import forOwn from 'lodash/forOwn';
 import map from 'lodash/map';
@@ -29,13 +30,26 @@ class Calendar extends React.Component {
   }
   state = {
     currentMonth: new Date(),
-    selectedDate: new Date()
+    selectedDate: new Date(),
+    modalStatus: false
   };
 
   
+  taskSelected = (value) => {
+      this.props.dispatch(setCurrentTask(value));
+      this.showModal();
+  }
+
+  showModal = () => {
+    this.setState({ modalStatus: true });
+  };
+
+  hideModal = () => {
+    this.setState({ modalStatus: false });
+  };
 
   addItems = (data,date) => { 
-    if(date !== data.sheduleddate && !data.expand) { 
+    if(date !== data.sheduleddate && !data.expand) {
     this.props.dispatch(assignTasks(data,date));
     this.props.dispatch(popTaskList(data.index));
       if(data.sheduleddate){      
@@ -140,6 +154,7 @@ class Calendar extends React.Component {
           onDateClick={this.onDateClick}
           addItems = {this.addItems}
           dragOver = {this.dragOver}
+          taskSelected = {this.taskSelected}
           assignedTaks={assignedTaks}
           key={day}
           number={number}
@@ -155,6 +170,12 @@ class Calendar extends React.Component {
       days = [];
     }
     return <div className="body">{rows}</div>;
+  }
+
+  renderTask() {
+    return (
+      <TaskDetails currentTask={this.props.currentTask} status={this.state.modalStatus} handleClose={this.hideModal}></TaskDetails>
+    );
   }
 
   onDateClick = day => {
@@ -181,6 +202,7 @@ class Calendar extends React.Component {
         {this.renderHeader()}
         {this.renderDays()}
         {this.renderCells()}
+        {this.renderTask()}
       </div>
     );
   }
@@ -191,6 +213,6 @@ class Calendar extends React.Component {
 export const mapStateToProps = (state) => ({
   assignedTasks: state.Tasks.assignedTasks,
   schedules: state.Tasks.schedules,
-  
+  currentTask: state.Tasks.currentTask
 });
 export default connect(mapStateToProps)(Calendar);

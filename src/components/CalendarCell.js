@@ -51,6 +51,7 @@ class CalendarCell extends React.Component {
     let currentDateCell = this.props.displayDate;
     let currentTaskList = orderBy(this.props.assignedTaks, ['order'],['asc']);
     let order = 1;
+    let taskSelected = this.props.taskSelected;
 
     if (currentTaskList.constructor === Array) {
       currentTaskList = filter(
@@ -76,7 +77,7 @@ class CalendarCell extends React.Component {
     order++;
 
       
-      if(value.sheduleddate && value.sheduleddate===value.date){
+      if((value.startDate && value.startDate===value.date) || value.firstEntry){
         firstClass=true;
       }
       if (value.firstEntry){
@@ -84,8 +85,8 @@ class CalendarCell extends React.Component {
       }
       if (value.lastEntry) {
         rows.push(
-          <div key={uniqueKey} className={"dragable_expandable_container"+ (firstClass ? ' first_cell' : '')}>
-            <SheduledTask key={uniqueKey} index={value.index} flag={'schedule'} lastEntry={true} sheduleddate={currentDateCell} value={value.value} />
+          <div key={uniqueKey} className={"dragable_expandable_container" + (firstClass ? ' first_cell' : '')}>
+            <SheduledTask key={uniqueKey} index={value.index} flag={'schedule'} lastEntry={true} sheduleddate={currentDateCell} value={value.value} onClick={taskSelected} />
             <ExpandableArea key={uniqueKey + '##'} index={value.index} flag={'expand'} sheduleddate={currentDateCell} value={value.value} />
 
           </div>
@@ -94,7 +95,7 @@ class CalendarCell extends React.Component {
       } else {
         rows.push(
           <div key={uniqueKey} className={"dragable_expandable_container full_length_container" + (firstClass ? ' first_cell' : '')}>
-            <SheduledTask key={uniqueKey} index={value.index} flag={'schedule'} lastEntry={true} sheduleddate={currentDateCell} value={value.value} />
+            <SheduledTask key={uniqueKey} index={value.index} flag={'schedule'} lastEntry={true} sheduleddate={currentDateCell} value={value.value} onClick={taskSelected} />
           </div>
 
         );
