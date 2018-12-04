@@ -9,8 +9,6 @@ import orderBy from 'lodash/orderBy';
 import SheduledTask from './SheduledTask';
 import ExpandableArea from './ExpandableArea';
 
-
-
 const Types = {
   ITEM: 'toy'
 }
@@ -21,12 +19,7 @@ function collect(connect, monitor) {
 }
 
 const componentTarget = {
-  /**
-* Function Name: drop
-* Description: Handles the case when the draggable item gets dropped to the drop target.
-* Input: 1.) Props passed from parent component 2.) Monitor object of react dnd
-* Output: 2.) Dropped item
-*/
+
   drop(props, monitor, component) {
     let droppedComponent = monitor.getItem();
     if (droppedComponent.flag === 'schedule') {
@@ -71,8 +64,6 @@ class CalendarCell extends React.Component {
         function (value) { return value; });
     }
     forOwn(currentTaskList, function (value, key) {
-    //  console.log(currentTaskList,"tasklistssssssssssssss")
-
     let uniqueKey = value.value + value.index;
     let firstClass =false;
       while (value.order > order) {
@@ -88,9 +79,12 @@ class CalendarCell extends React.Component {
       if(value.sheduleddate && value.sheduleddate===value.date){
         firstClass=true;
       }
+      if (value.firstEntry){
+        firstClass=true;
+      }
       if (value.lastEntry) {
         rows.push(
-          <div key={uniqueKey} className="dragable_expandable_container">
+          <div key={uniqueKey} className={"dragable_expandable_container"+ (firstClass ? ' first_cell' : '')}>
             <SheduledTask key={uniqueKey} index={value.index} flag={'schedule'} lastEntry={true} sheduleddate={currentDateCell} value={value.value} />
             <ExpandableArea key={uniqueKey + '##'} index={value.index} flag={'expand'} sheduleddate={currentDateCell} value={value.value} />
 

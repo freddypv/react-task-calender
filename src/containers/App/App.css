@@ -245,8 +245,14 @@ header #logo .icon {
 
 .grid-container div {
  
-  /*background-color: rgba(255, 255, 255, 0.8);;*/
-      border-color: #ddd;
+  /*background-color: rgba(255, 255, 255, 0.8);
+  border-color: #ddd; ;*/
+     
+}
+
+.dragable_expandable_container {
+  border-color: #e20f39;
+  margin-top: 1px;
 }
 
 .side-bar {
@@ -256,8 +262,8 @@ header #logo .icon {
 }
 
 .side-bar ul { 
-list-style-type: none;
-        padding-inline-start: 0;
+  list-style-type: none;
+  padding-inline-start: 0;
 
 }
 .side-bar ul li {
@@ -288,8 +294,9 @@ list-style-type: none;
   height: 20px;
   font-size: 14px;
   text-align: center;
-  border: solid 1px #fff;
+  border: solid 1px #f00;
   border-right: none;
+  border-left: none;
 
 }
 
@@ -317,7 +324,7 @@ list-style-type: none;
 
 
 
- .calendar .body .selected .number {
+.calendar .body .selected .number {
     pointer-events: none;
 } 
 
