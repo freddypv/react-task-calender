@@ -44,17 +44,20 @@ const Tasks = (state = {
         }))].map(s => 
           JSON.parse(s)
         )]
-        
-        // .filter((assignedTasks, index, self) =>
-        
-        //     index === self.findIndex((t) => (
-        //       t.index === assignedTasks.index && t.date === assignedTasks.date && t.lastEntry === assignedTasks.lastEntry
-        //     ))
-        //   )
       return {
         ...state,
         assignedTasks: expandedTasks
       };
+    case 'ADD_TASK_LIST_ITEM':
+      return {
+        ...state, tasks: [...state.tasks,...action.payload]
+      }
+
+    case 'REMOVE_TASKS_FOR_DATES':
+      return {
+        ...state, assignedTasks: [...state.assignedTasks.filter(value=>value.index !== action.index)]
+      }
+
     default:
       return state;
   }

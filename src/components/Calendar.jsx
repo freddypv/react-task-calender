@@ -9,7 +9,7 @@ import addMonths from "date-fns/add_months";
 import subMonths from "date-fns/sub_months";
 import { connect } from 'react-redux';
 import {assignTasks, popTaskList,
-   removeTasks, expandTask, setFirstDate} from '../actions/taskList';
+   removeTasks, expandTask} from '../actions/taskList';
 
 import CalendarCell from './CalendarCell';
 
@@ -35,7 +35,6 @@ class Calendar extends React.Component {
   
 
   addItems = (data,date) => { 
-    console.log(data,date,"jjjjjjjjjjjjj");
     if(date !== data.sheduleddate && !data.expand) { 
     this.props.dispatch(assignTasks(data,date));
     this.props.dispatch(popTaskList(data.index));
@@ -45,12 +44,10 @@ class Calendar extends React.Component {
     }
   }
 
-  dragOver = (data) => { 
-  
+  dragOver = (data) => {  
     if(this.dragoverDate[data.index]===data.date){
       return;
-    }  
-
+    }
     this.dragoverDate[data.index]=data.date
     if(data.date !== data.sheduleddate) { 
       data.sheduleddate= this.props.schedules[data.index] ? this.props.schedules[data.index] :data.sheduleddate;
@@ -107,14 +104,14 @@ class Calendar extends React.Component {
     let displayDate="";
     let assignedTaks="";
     let taskBydate = []
-forOwn(this.props.assignedTasks, function(value, key) { 
-  if(value) { 
-  if(!taskBydate[value.date]){
-    taskBydate[value.date]=[]
-  }
-  taskBydate[value.date].push(value);
-}
-} );
+    forOwn(this.props.assignedTasks, function(value, key) { 
+      if(value) { 
+      if(!taskBydate[value.date]){
+        taskBydate[value.date]=[]
+      }
+      taskBydate[value.date].push(value);
+    }
+  } );
 
 
     while (day <= endDate) {
@@ -126,14 +123,11 @@ forOwn(this.props.assignedTasks, function(value, key) {
         assignedTaks= taskBydate[displayDate] ? taskBydate[displayDate] : {};
         const cloneDay = day;
         map(assignedTaks, function (item) {
-         
           if(!weekKeys[item.index]) {
             number++;
-            weekKeys[item.index]=number;
-           
+            weekKeys[item.index] = number;
           }
-          item.order=weekKeys[item.index];          
-
+          item.order=weekKeys[item.index];
         });
         days.push(
           <CalendarCell 

@@ -53,16 +53,30 @@ export function expandTask( date, index) {
     };
 }
 
-export function setFirstDate( date) {
-  
-}
-
 export function removeTasks(date,taskId) {
     return (dispatch, getState) => {       
         dispatch({
             type: 'REMOVE_TASKS_TO_DATE', 
             taskId,
             date
+        });
+    };
+}
+
+export function addTaskList(index) {
+    const data = TASK_LIST.filter(value=>{
+       return value.key === index
+    });
+    return (dispatch) => {
+        dispatch({type: 'ADD_TASK_LIST_ITEM', payload: data});
+    };
+}
+
+export function removeTaskForAllDates(index) {
+    return (dispatch, getState) => {       
+        dispatch({
+            type: 'REMOVE_TASKS_FOR_DATES', 
+            index
         });
     };
 }

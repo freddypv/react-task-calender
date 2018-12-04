@@ -319,7 +319,9 @@ header #logo .icon {
   background-image: url('/../../icons8-drag-reorder-filled-50.png');
   background-size: contain;
   background-repeat: no-repeat;
-
+  background-color: #00ff00;
+  border: solid 1px #f00;
+  border-left: none;
 }
 
 
