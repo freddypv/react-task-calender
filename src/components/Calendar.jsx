@@ -14,6 +14,7 @@ import {assignTasks, popTaskList,
 import CalendarCell from './CalendarCell';
 
 import forOwn from 'lodash/forOwn';
+import map from 'lodash/map';
 import debounce from 'lodash/debounce';
 
 
@@ -117,11 +118,23 @@ forOwn(this.props.assignedTasks, function(value, key) {
 
 
     while (day <= endDate) {
+      let weekKeys =[];
+      let number = 0;
       for (let i = 0; i < 7; i++) {
         formattedDate = format(day, dateFormat);
         displayDate = format(day, 'DDMMMYYYY');
         assignedTaks= taskBydate[displayDate] ? taskBydate[displayDate] : {};
         const cloneDay = day;
+        map(assignedTaks, function (item) {
+         
+          if(!weekKeys[item.index]) {
+            number++;
+            weekKeys[item.index]=number;
+           
+          }
+          item.order=weekKeys[item.index];          
+
+        });
         days.push(
           <CalendarCell 
           day={day}
@@ -135,6 +148,7 @@ forOwn(this.props.assignedTasks, function(value, key) {
           dragOver = {this.dragOver}
           assignedTaks={assignedTaks}
           key={day}
+          number={number}
           ></CalendarCell>         
         );
         day = addDays(day, 1);

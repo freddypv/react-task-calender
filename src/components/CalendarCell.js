@@ -5,6 +5,7 @@ import { DropTarget } from 'react-dnd';
 import forOwn from 'lodash/forOwn';
 import filter from 'lodash/filter';
 import map from 'lodash/map';
+import orderBy from 'lodash/orderBy';
 import SheduledTask from './SheduledTask';
 import ExpandableArea from './ExpandableArea';
 
@@ -55,7 +56,8 @@ class CalendarCell extends React.Component {
   renderTasks() {
     const rows = [];
     let currentDateCell = this.props.displayDate;
-    let currentTaskList = this.props.assignedTaks;
+    let currentTaskList = orderBy(this.props.assignedTaks, ['order'],['asc']);
+    let order = 1;
 
     if (currentTaskList.constructor === Array) {
       currentTaskList = filter(
@@ -68,11 +70,21 @@ class CalendarCell extends React.Component {
         }),
         function (value) { return value; });
     }
-
     forOwn(currentTaskList, function (value, key) {
     //  console.log(currentTaskList,"tasklistssssssssssssss")
-      let uniqueKey = value.value + value.index;
-      let firstClass =false;
+
+    let uniqueKey = value.value + value.index;
+    let firstClass =false;
+      while (value.order > order) {
+        rows.push(
+          <div key={uniqueKey+'_'+order} className="empty_cell">            
+          </div>
+        )
+        order++;
+    }
+    order++;
+
+      
       if(value.sheduleddate && value.sheduleddate===value.date){
         firstClass=true;
       }

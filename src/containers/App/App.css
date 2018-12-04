@@ -321,5 +321,9 @@ list-style-type: none;
     pointer-events: none;
 } 
 
+.empty_cell {
+  height: 20px;
+}
+
 
 
