@@ -22,7 +22,11 @@ class Task extends Component {
     render() {
         const {connectDragSource} = this.props
         return connectDragSource(
-            <li index={this.props.index}>{this.props.value}</li>
+            <div className={'bs-callout bs-callout-warning '+ this.props.type } index={this.props.index}>
+            <h4>{this.props.value}</h4>
+            <p>Lorem ipsum dolor sit amet, eu legimus inimicus abhorreant mea. Assentior percipitur sit te, mea cu error iuvaret voluptatibus, quo an partem integre conceptam. Cu sed alii ferri. Fabulas legendos prodesset vix cu.</p>
+            
+            </div>
         )
     }
 }

@@ -32,7 +32,7 @@ class SideBar extends React.Component {
     const { connectDropTarget } = this.props;
     return connectDropTarget(
       <div className="side-bar">
-        Unscheduled Tasks
+        <p className="unassigned-task-heading">Unscheduled Tasks</p>
         <TaskLists />
       </div>
     );

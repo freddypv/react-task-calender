@@ -15,16 +15,16 @@ class TaskList extends Component {
     generateHeaders() {
     const taskLists = this.props.taskLists;
     return taskLists.map((data) => {
-      return <Task  key={data.key} index={data.key} value={data.name} flag={'schedule'} lastEntry={true} firstEntry={true}/>;
+      return <Task  key={data.key} index={data.key} type={data.type} value={data.name} flag={'schedule'} lastEntry={true} firstEntry={true}/>;
     });
   }
 
 
  render() {
     return (    
-       <ul>
+       <div>
         {this.generateHeaders()}           
-        </ul>
+        </div>
     );
   }
 

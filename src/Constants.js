@@ -32,23 +32,28 @@ export const USER_DETAIL = {
 export const TASK_LIST = [
      {
     key: 'slno1',
-    name: 'Task 1'
+    name: 'Task 1',
+    type:'feature'
   },
      {
     key: 'slno2',
-    name: 'Task 2'
+    name: 'Task 2',
+    type:'feature'
   },
      {
     key: 'slno3',
-    name: 'Task 3'
+    name: 'Task 3',
+    type:'bug'
   },
      {
     key: 'slno4',
-    name: 'Task 4'
+    name: 'Task 4',
+    type:'feature'
   },
      {
     key: 'slno5',
-   name: 'Task 5'
+   name: 'Task 5',
+   type:'bug'
   },
 
     
